@@ -11,6 +11,7 @@ export default function Nav(){
                 <li className={styles.li}> <Link href='/basic/bmi'>bmi</Link> </li>
                 <li className={styles.li}> <Link href='/basic/grade'>grade</Link> </li>
                 <li className={styles.li}> <Link href='/basic/login'>login</Link> </li>
+                <li className={styles.li}> <Link href='/basic/todo'>todo</Link> </li>
             </ul>
         </nav>
     )
