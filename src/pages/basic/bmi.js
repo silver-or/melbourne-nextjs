@@ -1,43 +1,44 @@
 import React, {useState} from "react";
 
 export default function Bmi () {
-    const [username, setUsername] = useState("")
-    const [height, setHeight] = useState(0.0)
-    const [weight, setWeight] = useState(0.0)
+    const [inputs, setInputs] = useState({}) // 세 개로 나뉜 것을 JSON({})으로 합침
+    const {name, height, weight} = inputs; // Object Destructuring (구조 분해 할당) // 꺼내면서 객체에 이름 부여
     const [bmi, setBmi] = useState(0.0)
-    const [result, setResult] = useState("")
-    const getBmi = () => {
-        let username = document.getElementById('username').value
-        console.log('username : ' + username)
-        let height = document.getElementById('height').value
-        console.log('height : ' + height)
-        let weight = document.getElementById('weight').value
-        console.log('weight : ' + weight)
-        setUsername(username)
-        setHeight(height)
-        setWeight(weight)
-        setBmi(Number(weight) / (Number(height) * Number(height)) * 10000)
-        if (bmi >= 35) {setResult(username + "의 키 : " + Number(height) + ", 몸무게 : " + Number(weight) + ", 고도비만")}
-        else if (bmi >= 30) {setResult(username + "의 키 : " + Number(height) + ", 몸무게 : " + Number(weight) + ", 중도비만")}
-        else if (bmi >= 25) {setResult(username + "의 키 : " + Number(height) + ", 몸무게 : " + Number(weight) + ", 경도비만")}
-        else if (bmi >= 23) {setResult(username + "의 키 : " + Number(height) + ", 몸무게 : " + Number(weight) + ", 과체중")}
-        else if (bmi >= 18.5) {setResult(username + "의 키 : " + Number(height) + ", 몸무게 : " + Number(weight) + ", 정상")}
-        else {setResult(username + "의 키 : " + Number(height) + ", 몸무게 : " + Number(weight) + ", 저체중")}
+    const [result, setResult] = useState('')
+
+    const onChange = (e) => {
+        e.preventDefault()
+        const {value, name} = e.target;
+        setInputs({...inputs, [name] : value})   
     }
-    return (<>
-    <h1>Bmi</h1>
-        <div>
-            <label><b>이름</b></label> <br/>
-            <input id="username"/> <br/>
-            <label><b>키</b></label> <br/>
-            <input id="height"/> <br/>
-            <label><b>몸무게</b></label> <br/>
-            <input id="weight"/>
-        </div>
-        <div>
-            <button onClick={() => {getBmi()}}>Bmi 지수 계산하기</button>
-            <div>{result}</div>
-            <button>취소</button>
-        </div>
+
+    const onClick = (e) => {
+        e.preventDefault() // HTML이 default
+        setBmi(Number(weight) / (Number(height) * Number(height)) * 10000)
+        if (bmi >= 35) {setResult(name + "의 키 : " + Number(height) + ", 몸무게 : " + Number(weight) + ", 고도비만")}
+        else if (bmi >= 30) {setResult(name + "의 키 : " + Number(height) + ", 몸무게 : " + Number(weight) + ", 중도비만")}
+        else if (bmi >= 25) {setResult(name + "의 키 : " + Number(height) + ", 몸무게 : " + Number(weight) + ", 경도비만")}
+        else if (bmi >= 23) {setResult(name + "의 키 : " + Number(height) + ", 몸무게 : " + Number(weight) + ", 과체중")}
+        else if (bmi >= 18.5) {setResult(name + "의 키 : " + Number(height) + ", 몸무게 : " + Number(weight) + ", 정상")}
+        else {setResult(name + "의 키 : " + Number(height) + ", 몸무게 : " + Number(weight) + ", 저체중")}
+    }
+    
+    return (< >
+        <h1>Bmi</h1>
+        <form>
+            <div>
+                <label><b>이름</b></label> <br/>
+                <input type="text" name="name" onChange={onChange}/> <br/>
+                <label><b>키</b></label> <br/>
+                <input type="text" name="height" onChange={onChange}/> <br/>
+                <label><b>몸무게</b></label> <br/>
+                <input type="text" name="weight" onChange={onChange}/>
+            </div>
+            <div>
+                <button onClick={onClick}>BMI 지수 체크하기</button> &nbsp;
+                <button>취소</button>
+            </div>
+        </form>
+        <div>{result}</div>
     </>)
 }

@@ -6,9 +6,9 @@ export default function Home() {
 
   return (
     <HomeDiv>
-    <button onClick={() => setCount(count + 1)}>+</button><br />
-    <button onClick={() => setCount(count - 1)}>-</button> <br/>
-    <div>{count}</div>
+      <button onClick={() => setCount(count + 1)}>+</button><br />
+      <button onClick={() => setCount(count - 1)}>-</button> <br/>
+      <div>{count}</div>
     </HomeDiv>
   )
 }
